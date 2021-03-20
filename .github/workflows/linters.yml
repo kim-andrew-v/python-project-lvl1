@@ -19,7 +19,6 @@ jobs:
 
       # Runs the Super-Linter action
       - name: make lint
-        uses: github/super-linter@v3
         run: make lint
         env:
           DEFAULT_BRANCH: main
