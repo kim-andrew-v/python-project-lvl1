@@ -5,8 +5,8 @@ from brain_games import cli
 
 
 def main():
-    """Return welcome."""
-    print('Welcome to the Brain Games!')
+    """Welcome user of game."""
+    print('Welcome to the Brain Games! ')
     cli.welcome_user()
 
 
