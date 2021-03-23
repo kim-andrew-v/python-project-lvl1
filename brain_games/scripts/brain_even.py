@@ -27,11 +27,7 @@ def main():
 
 
 def is_even():
-    """Count if number is even or odd.
-
-    :returns:
-        bool
-    """
+    """Count if number is even or odd."""
     number = random.randint(1, 100)
     answer = prompt.string('Question: {} '.format(number))
     if answer in positive:
