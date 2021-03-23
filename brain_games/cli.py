@@ -2,7 +2,13 @@
 import prompt
 
 
-def welcome_user():
-    """Asking user a name, and then does hello."""
+def welcome():
+    """Welcome new user."""
+    print('Welcome to the Brain Games!')
+
+
+def get_name():
+    """Asking player a name, and then does hello."""
     name = prompt.string('May I have your name? ')
     print('Hello, {}!'.format(name))
+    return name

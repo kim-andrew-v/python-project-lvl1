@@ -7,7 +7,7 @@ from brain_games import cli
 def main():
     """Welcome user of game."""
     print('Welcome to the Brain Games! ')
-    cli.welcome_user()
+    cli.get_name()
 
 
 if __name__ == '__main__':
