@@ -26,6 +26,8 @@ def logic(game, username):
         func = 'is_even'
     elif game == 'gcd':
         func = 'is_gcd'
+    elif game == 'progr':
+        func = 'is_progr'
     correct = 0
     my_func = getattr(sys.modules[__name__], func)
     while correct < 3:
@@ -93,4 +95,27 @@ def is_gcd():
         print('Correct!')
         return True
     cli.your_answer_is_wrong(answer, gcd)
+    return False
+
+
+def is_progr():
+    """Return if missing piece of progression is correct."""
+    modulo = random.randint(1, 10)
+    length = random.randint(5, 10)
+    start = random.randint(1, 100)
+    sequence = [start]
+    for iterable in range(1, length + 1):
+        sequence.append(start + modulo * iterable)
+    replaced = random.choice(sequence)
+    for index, item in enumerate(sequence):
+        if item == replaced:
+            sequence[index] = '..'
+    answer = prompt.string(
+        'Question: {} '.
+        format(' '.join(str(num) for num in sequence)),
+    )
+    if answer == str(replaced):
+        print('Correct!')
+        return True
+    cli.your_answer_is_wrong(answer, replaced)
     return False
