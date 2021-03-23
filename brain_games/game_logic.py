@@ -5,6 +5,8 @@ import sys
 
 import prompt
 
+from brain_games import cli
+
 positive = ['YES', 'yes', 'Yes']
 negative = ['no', 'NO', 'No']
 operations = {'*': operator.mul, '-': operator.sub, '+': operator.add}
@@ -17,13 +19,15 @@ def logic(game, username):
         game: string type of game
         username: string username
     """
-    game_type = ''
+    func = ''
     if game == 'calc':
-        game_type = 'is_correct'
+        func = 'is_correct'
     elif game == 'even':
-        game_type = 'is_even'
+        func = 'is_even'
+    elif game == 'gcd':
+        func = 'is_gcd'
     correct = 0
-    my_func = getattr(sys.modules[__name__], game_type)
+    my_func = getattr(sys.modules[__name__], func)
     while correct < 3:
         if my_func():
             correct = correct + 1
@@ -31,7 +35,7 @@ def logic(game, username):
         else:
             print("Let's try again {}".format(username))
             correct = 0
-    print('Congratulations, {}!'.format(username))
+    cli.congrats(username)
 
 
 def is_even():
@@ -49,10 +53,7 @@ def is_even():
     elif number % 2 != 0 and answer in negative:
         print('Correct!')
         return True
-    print(
-        "'{}' is wrong answer ;(. Correct answer was '{}'.".
-        format(answer, opposite),
-    )
+    cli.your_answer_is_wrong(answer, opposite)
     return False
 
 
@@ -70,8 +71,26 @@ def is_correct():
     if res == int(answer):
         print('Correct!')
         return True
-    print(
-        "'{}' is wrong answer ;(. Correct answer was '{}'.".
-        format(answer, res),
+    cli.your_answer_is_wrong(answer, res)
+    return False
+
+
+def is_gcd():
+    """Return if gcd is correct."""
+    num1 = random.randint(1, 100)
+    num2 = random.randint(1, 100)
+    gcd = 1
+    biggest = num2 if num2 > num1 else num1
+    for iterable in range(2, biggest + 1):
+        if num1 % iterable == 0 and num2 % iterable == 0:
+            gcd = iterable
+    answer = prompt.string(
+        'Question: {} '.
+        format(str(num1) + ' ' + str(num2) + ' '),
     )
+    print('Your answer: {}'.format(answer))
+    if gcd == int(answer):
+        print('Correct!')
+        return True
+    cli.your_answer_is_wrong(answer, gcd)
     return False
